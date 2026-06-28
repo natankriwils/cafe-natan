@@ -34,62 +34,112 @@ $result_detail = mysqli_query($conn, $query);
 <html>
 <head>
     <title>Receipt</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>Cafe Natan</h1>
+<nav class="navbar">
 
-<hr>
+    <div class="container navbar-container">
 
-<h3>Receipt #<?= $transaksi["id"] ?></h3>
+        <a class="navbar-brand">
+            Cafe Natan
+        </a>
 
-<p>
-Tanggal:
-<?= $transaksi["created_at"] ?>
-</p>
+        <a href="dashboard.php" class="nav-link active">
+            Dashboard
+        </a>
 
-<hr>
+    </div>
 
-<?php while($item = mysqli_fetch_assoc($result_detail)): ?>
+</nav>
 
-<p>
+<div class="container">
 
-<?= $item["nama_menu"] ?>
+    <div class="receipt-card">
 
-x<?= $item["jumlah"] ?>
+        <h1>Receipt</h1>
 
-=
+        <p class="tagline">
+            Detail Transaksi Pelanggan
+        </p>
 
-Rp <?= number_format($item["subtotal"], 0, ',', '.') ?>
+        <hr>
 
-</p>
+        <h2>Cafe Natan</h2>
 
-<?php endwhile; ?>
+        <p class="receipt-subtitle">
+            Coffee & Cashier Management
+        </p>
 
-<hr>
+        <hr>
 
-<h3>
+        <h4>
+            Receipt #<?= $transaksi["id"] ?>
+        </h4>
 
-Total:
+        <p>
+            <?= $transaksi["created_at"] ?>
+        </p>
 
-Rp <?= number_format(
-    $transaksi["total_harga"],
-    0,
-    ',',
-    '.'
-) ?>
+        <hr>
 
-</h3>
+        <?php while($item = mysqli_fetch_assoc($result_detail)): ?>
 
-<hr>
+            <div class="receipt-item">
 
-<p>
-Terima Kasih 😊
-</p>
+                <strong>
+                    <?= $item["nama_menu"] ?>
+                </strong>
 
-<a href="kasir.php">
-    Kembali ke Kasir
-</a>
+                <span class="qty">
+                    x<?= $item["jumlah"] ?>
+                </span>
+
+                <br>
+
+                Rp <?= number_format(
+                    $item["subtotal"],
+                    0,
+                    ',',
+                    '.'
+                ) ?>
+
+            </div>
+
+        <?php endwhile; ?>
+
+        <hr>
+
+        <h4>Total</h4>
+
+        <h3>
+            Rp <?= number_format(
+                $transaksi["total_harga"],
+                0,
+                ',',
+                '.'
+            ) ?>
+        </h3>
+
+        <hr>
+
+        <p>
+            Terima Kasih
+        </p>
+
+    </div>
+
+    <div class="receipt-button">
+
+        <a href="kasir.php" class="btn-card">
+            Kembali ke Kasir
+        </a>
+
+    </div>
+
+</div>
 
 </body>
 </html>
