@@ -17,103 +17,108 @@ $result = mysqli_query($conn, $query);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Kasir</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h1>Halaman Kasir</h1>
-
-<a href="dashboard.php">Dashboard</a>
-
-<br><br>
-
-<table border="1" cellpadding="10">
-
-    <tr>
-        <th>Nama Menu</th>
-        <th>Harga</th>
-        <th>Aksi</th>
-    </tr>
-
-    <?php while($row = mysqli_fetch_assoc($result)): ?>
-
-    <tr>
-        <td><?= $row["nama_menu"] ?></td>
-
-        <td>
-            Rp <?= number_format($row["harga"], 0, ',', '.') ?>
-        </td>
-
-        <td>
-
-            <a href="tambah_keranjang.php?id=<?= $row['id'] ?>">
-                Tambah
+    <nav class="navbar navbar-expand">
+        <div class="container">
+            <a class="navbar-brand">
+                Cafe Natan
             </a>
+            <div class="ms-auto">
+                <a href="dashboard.php" class="nav-link active">
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="hero">
+        <h1>Kasir</h1>
+        <p class="tagline">
+            Pilih menu untuk customer
+        </p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="menu-card">
+                        <h4>
+                            <?= $row["nama_menu"] ?>
+                        </h4>
+                        <p>
+                            Rp <?= number_format($row["harga"], 0, ',', '.') ?>
+                        </p>
+                        <a href="tambah_keranjang.php?id=<?= $row['id'] ?>" class="btn-card">
+                            Tambah
+                        </a>
+                        <a href="kurang_keranjang.php?id=<?= $row['id'] ?>" class="btn-card">
+                            Kurang
+                        </a>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
 
-            |
+        <hr>
 
-            <a href="kurang_keranjang.php?id=<?= $row['id'] ?>">
-                Kurang
-            </a>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-5 mx-auto">
+                <div class="cart-card">
+                    <h2>Keranjang</h2>
+                    <br>
+                    <?php
+                    $total = 0;
+                    foreach ($_SESSION["keranjang"] as $id_menu => $jumlah):
+                        $query = "SELECT * FROM menu WHERE id = $id_menu";
+                        $result_menu = mysqli_query($conn, $query);
+                        $menu = mysqli_fetch_assoc($result_menu);
+                        $subtotal = $menu["harga"] * $jumlah;
+                        $total += $subtotal;
+                    ?>
+                        <div class="cart-item">
+                            <strong>
+                                <?= $menu["nama_menu"] ?>
+                            </strong>
+                            <span class="float-end">
+                                x<?= $jumlah ?>
+                            </span>
+                            <br>
+                            Rp <?= number_format($subtotal, 0, ',', '.') ?>
+                        </div>
 
-        </td>
-    </tr>
+                    <?php endforeach; ?>
+                    <hr>
+                    <h4>Total</h4>
 
-    <?php endwhile; ?>
+                    <h3>
+                        Rp <?= number_format($total, 0, ',', '.') ?>
+                    </h3>
 
-</table>
+                    <br>
 
-<hr>
+                    <form action="simpan_transaksi.php" method="POST">
 
-<h2>Keranjang</h2>
+                        <button
+                            type="submit"
+                            class="btn-save">
+                            Simpan Transaksi
+                        </button>
 
-<?php
+                    </form>
 
-$total = 0;
-
-if (isset($_SESSION["keranjang"])) {
-
-    foreach ($_SESSION["keranjang"] as $id => $jumlah) {
-
-        $query = "SELECT * FROM menu WHERE id = $id";
-
-        $result_menu = mysqli_query($conn, $query);
-
-        $menu = mysqli_fetch_assoc($result_menu);
-
-        $subtotal = $menu["harga"] * $jumlah;
-
-        $total += $subtotal;
-
-?>
-
-<p>
-    <?= $menu["nama_menu"] ?>
-    x<?= $jumlah ?>
-    =
-    Rp <?= number_format($subtotal, 0, ',', '.') ?>
-</p>
-
-<?php
-    }
-}
-?>
-
-<hr>
-
-<h3>
-    Total:
-    Rp <?= number_format($total, 0, ',', '.') ?>
-</h3>
-
-<form action="simpan_transaksi.php" method="POST">
-
-    <button type="submit">
-        Simpan Transaksi
-    </button>
-
-</form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>
