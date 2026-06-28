@@ -8,7 +8,6 @@ if (empty($_SESSION["keranjang"])) {
 
     header("Location: kasir.php");
     exit;
-
 }
 
 $total = 0;
@@ -24,7 +23,6 @@ foreach ($_SESSION["keranjang"] as $id => $jumlah) {
     $subtotal = $menu["harga"] * $jumlah;
 
     $total += $subtotal;
-
 }
 
 $query = "INSERT INTO transaksi (total_harga)
@@ -55,7 +53,6 @@ foreach ($_SESSION["keranjang"] as $id => $jumlah) {
                $subtotal)";
 
     mysqli_query($conn, $query);
-
 }
 
 unset($_SESSION["keranjang"]);
