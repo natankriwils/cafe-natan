@@ -9,36 +9,66 @@ if (!isset($_SESSION["admin"])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h1>Dashboard Admin</h1>
+    <nav class="navbar navbar-expand navbar-light bg-white">
+        <div class="container-fluid">
 
-<p>Selamat datang, <?= $_SESSION["admin"] ?></p>
+            <a class="navbar-brand" href="#">
+                Cafe Dashboard
+            </a>
 
-<a href="kasir.php">
-    kasir
-</a>
+            <section class="hero">
+                <h1>Welcome Back, <?= $_SESSION["admin"] ?>!</h1>
+                <p class="tagline">
+                    Manage cafe operations.
+                </p>
+            </section>
 
-<br><br>
-
-<a href="menu.php">
-    Kelola Menu
-</a>
-
-<br><br>
-
-<a href="riwayat.php">
-    Riwayat Pembelian
-</a>
-
-<br><br>
-
-<a href="logout.php">
-    Logout
-</a>
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <a href="menu.php" class="dashboard-card">
+                            <h3>Kelola Menu</h3>
+                            <p>
+                                Tambah, edit, dan hapus menu cafe.
+                            </p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="kasir.php" class="dashboard-card">
+                            <h3>Kasir</h3>
+                            <p>
+                                Untuk transaksi customer.
+                            </p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="riwayat.php" class="dashboard-card">
+                            <h3>Riwayat Transaksi</h3>
+                            <p>
+                                Lihat seluruh riwayat transaksi.
+                            </p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="logout.php" class="dashboard-card">
+                            <h3>logout</h3>
+                            <p>
+                                Keluar akun.
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
 </body>
+
 </html>
