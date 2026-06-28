@@ -21,10 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nama_menu = $_POST["nama_menu"];
     $harga = $_POST["harga"];
-
     $query = "UPDATE menu
               SET nama_menu='$nama_menu',
-                  harga='$harga'
+              harga='$harga'
               WHERE id=$id";
 
     mysqli_query($conn, $query);
@@ -37,44 +36,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Menu</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h1>Edit Menu</h1>
+    <div class="login-wrapper">
+        <div class="form-card">
+            <h1 class="login-title">
+                Edit Menu
+            </h1>
+            <p class="edit-menu-subtitle">
+                Ubah informasi menu cafe
+            </p>
+            <form method="POST">
+                <label>Nama Menu</label>
+                <input type="text" name="nama_menu" class="edit-form-control" value="<?= $menu['nama_menu'] ?>" required>
 
-<form method="POST">
+                <label>Harga</label>
 
-    <label>Nama Menu</label><br>
-    <input
-        type="text"
-        name="nama_menu"
-        value="<?= $menu['nama_menu'] ?>"
-        required
-    >
+                <input
+                    type="number"
+                    name="harga"
+                    class="edit-form-control"
+                    value="<?= $menu['harga'] ?>"
+                    required>
 
-    <br><br>
+                <button
+                    type="submit"
+                    class="btn-save">
+                    Simpan Perubahan
+                </button>
 
-    <label>Harga</label><br>
-    <input
-        type="number"
-        name="harga"
-        value="<?= $menu['harga'] ?>"
-        required
-    >
+            </form>
 
-    <br><br>
+            <a
+                href="menu.php"
+                class="btn-card back-btn">
+                Kembali
+            </a>
 
-    <button type="submit">
-        Simpan Perubahan
-    </button>
+        </div>
 
-</form>
-
-<br>
-
-<a href="menu.php">Kembali</a>
+    </div>
 
 </body>
+
 </html>
