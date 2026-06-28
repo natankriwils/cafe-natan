@@ -11,11 +11,9 @@ if (!isset($_SESSION["keranjang"])) {
 if (isset($_SESSION["keranjang"][$id])) {
 
     $_SESSION["keranjang"][$id]++;
-
 } else {
 
     $_SESSION["keranjang"][$id] = 1;
-
 }
 
 header("Location: kasir.php");
