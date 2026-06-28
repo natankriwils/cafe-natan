@@ -18,43 +18,48 @@ $result = mysqli_query($conn, $query);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Riwayat Pembelian</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h1>Riwayat Pembelian</h1>
+    <h1>Riwayat Pembelian</h1>
 
-<a href="dashboard.php">Dashboard</a>
-<br><br>
+    <a href="dashboard.php">Dashboard</a>
+    <br><br>
 
-<hr>
+    <hr>
 
-<table border="1" cellpadding="10">
+    <table border="1" cellpadding="10">
 
-    <tr>
-        <th>ID</th>
-        <th>Tanggal</th>
-        <th>Total Harga</th>
-        <th>Aksi</th>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>Tanggal</th>
+            <th>Total Harga</th>
+            <th>Aksi</th>
+        </tr>
 
-    <?php while($row = mysqli_fetch_assoc($result)): ?>
+        <?php while ($row = mysqli_fetch_assoc($result)): ?>
 
-    <tr>
-        <td><?= $row["id"] ?></td>
-        <td><?= $row["created_at"] ?></td>
-        <td>Rp <?= number_format($row["total_harga"], 0, ',', '.') ?></td>
-        <td>
-            <a href="receipt.php?id=<?= $row['id'] ?>">
-                Lihat Receipt
-            </a>
-        </td>
-    </tr>
+            <tr>
+                <td><?= $row["id"] ?></td>
+                <td><?= $row["created_at"] ?></td>
+                <td>Rp <?= number_format($row["total_harga"], 0, ',', '.') ?></td>
+                <td>
+                    <a href="receipt.php?id=<?= $row['id'] ?>">
+                        Lihat Receipt
+                    </a>
+                </td>
+            </tr>
 
-    <?php endwhile; ?>
+        <?php endwhile; ?>
 
-</table>
+    </table>
 
 </body>
+
 </html>
