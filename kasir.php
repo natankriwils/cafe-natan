@@ -56,9 +56,9 @@ $result = mysqli_query($conn, $query);
                         <p>Rp <?= number_format($row["harga"], 0, ',', '.') ?></p>
 
                         <div class="qty-control">
-                            <a href="tambah_keranjang.php?id=<?= $row["id"] ?>" class="qty-btn">+</a>
+                            <a href="kurang_keranjang.php?id=<?= $row["id"] ?>" class="qty-btn">−</a>
                             <span class="qty-number"><?= $jumlah ?></span>
-                            <a href="kurang_keranjang.php?id=<?= $row["id"] ?>" class="qty-btn">−</a>   
+                            <a href="tambah_keranjang.php?id=<?= $row["id"] ?>" class="qty-btn">+</a>   
                         </div>
 
                     </div>
